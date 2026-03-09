@@ -1,5 +1,9 @@
 package site.otools.Wasted;
 
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -16,6 +20,12 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import site.otools.Wasted.block.ModBlocks;
+import site.otools.Wasted.block.custom.TrashbagBlock;
+import site.otools.Wasted.item.ModCreativeModeTabs;
+import site.otools.Wasted.item.ModItems;
+
+import static net.minecraft.world.item.Items.registerBlock;
 
 @Mod(WastedMod.MOD_ID)
 public class WastedMod {
@@ -25,6 +35,11 @@ public class WastedMod {
     public WastedMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
         NeoForge.EVENT_BUS.register(this);
+
+        ModCreativeModeTabs.register(modEventBus);
+
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -34,14 +49,17 @@ public class WastedMod {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
+       /*
+       if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            event.accept(ModItems.TRASH);
+        }
+       */
     }
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
 
     }
-
     @EventBusSubscriber(modid = WastedMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     static class ClientModEvents {
         @SubscribeEvent

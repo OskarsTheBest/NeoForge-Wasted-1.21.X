@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "wastedmod:block/trashbag"
+    },
+    "facing=south": {
+      "model": "wastedmod:block/trashbag",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "wastedmod:block/trashbag",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "wastedmod:block/trashbag",
+      "y": 270
+    }
+  }
+}
