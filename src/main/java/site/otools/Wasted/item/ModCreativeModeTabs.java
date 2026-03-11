@@ -19,8 +19,12 @@ public class ModCreativeModeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.TRASH.get()))
                     .title(Component.translatable("creativetab.wastedmod.wasted_items"))
                     .displayItems((ItemDisplayParameters, output) ->{
+
                         output.accept(ModItems.TRASH);
+                        output.accept(ModItems.COIN);
+
                         output.accept(ModBlocks.TRASHBAG.get());
+                        output.accept(ModBlocks.RECYCLER.get());
                         //output.accept(ModItems.xxxx);
                     })
                     .build());

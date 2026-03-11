@@ -10,6 +10,7 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import site.otools.Wasted.WastedMod;
+import site.otools.Wasted.block.custom.RecyclerBlock;
 import site.otools.Wasted.block.custom.TrashbagBlock;
 import site.otools.Wasted.item.ModItems;
 
@@ -20,6 +21,8 @@ public class ModBlocks {
             DeferredRegister.createBlocks(WastedMod.MOD_ID);
 
     public static final DeferredBlock<Block> TRASHBAG = registerBlock("trashbag", ()-> new TrashbagBlock(BlockBehaviour.Properties.of().noOcclusion()));
+
+    public static final DeferredBlock<Block> RECYCLER = registerBlock("recycler", ()-> new RecyclerBlock(BlockBehaviour.Properties.of()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

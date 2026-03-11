@@ -3,6 +3,7 @@ package site.otools.Wasted;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.slf4j.Logger;
 
@@ -24,6 +25,8 @@ import site.otools.Wasted.block.ModBlocks;
 import site.otools.Wasted.block.custom.TrashbagBlock;
 import site.otools.Wasted.item.ModCreativeModeTabs;
 import site.otools.Wasted.item.ModItems;
+import site.otools.Wasted.screen.ModMenuTypes;
+import site.otools.Wasted.screen.custom.RecyclerScreen;
 
 import static net.minecraft.world.item.Items.registerBlock;
 
@@ -40,6 +43,7 @@ public class WastedMod {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -61,10 +65,15 @@ public class WastedMod {
 
     }
     @EventBusSubscriber(modid = WastedMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    static class ClientModEvents {
+    public static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
 
         }
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(ModMenuTypes.RECYCLER_MENU.get(), RecyclerScreen::new);
+        }
     }
+
 }
