@@ -23,6 +23,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import site.otools.Wasted.block.ModBlocks;
 import site.otools.Wasted.block.custom.TrashbagBlock;
+import site.otools.Wasted.block.entity.ModBlockEntities;
 import site.otools.Wasted.item.ModCreativeModeTabs;
 import site.otools.Wasted.item.ModItems;
 import site.otools.Wasted.screen.ModMenuTypes;
@@ -44,6 +45,7 @@ public class WastedMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
