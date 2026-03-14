@@ -103,7 +103,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void craftItem() {
-        ItemStack output = new ItemStack(ModItems.COIN.get(),8);
+        ItemStack output = new ItemStack(ModItems.COIN.get(),1);
 
         itemHandler.extractItem(INPUT_SLOT, 1, false);
         itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
