@@ -22,7 +22,7 @@ import site.otools.Wasted.screen.custom.RecyclerMenu;
 
 public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
 
-    public final ItemStackHandler itemHandler= new ItemStackHandler(2){
+    public final ItemStackHandler itemHandler= new ItemStackHandler(13){
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -32,7 +32,8 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         }
     };
     private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int FIRST_OUTPUT_SLOT = 1;
+    private static final int LAST_OUTPUT_SLOT = 12;
 
     protected final ContainerData data;
     private int progress = 0;
@@ -106,8 +107,21 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         ItemStack output = new ItemStack(ModItems.COIN.get(),1);
 
         itemHandler.extractItem(INPUT_SLOT, 1, false);
-        itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
+
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+
+            if (stack.isEmpty()) {
+                itemHandler.setStackInSlot(i, output.copy());
+                return;
+            }
+
+            if (stack.getItem() == output.getItem() && stack.getCount() < stack.getMaxStackSize()) {
+                stack.grow(output.getCount());
+                itemHandler.setStackInSlot(i, stack);
+                return;
+            }
+        }
     }
 
     private void resetProgress() {
@@ -126,20 +140,59 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
 
     private boolean hasRecipe() {
         ItemStack output = new ItemStack(ModItems.COIN.get()); // hardcoded , can be loot table with diff items
-        return itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH) && // hardcoded for now, todo
-                canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
+        // input must be trash
+        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH)) {
+            return false;
+        }
+
+        // check if ANY output slot can accept the item
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+
+            if (stack.isEmpty()) {
+                return true;
+            }
+
+            if (stack.getItem() == output.getItem() &&
+                    stack.getCount() < stack.getMaxStackSize()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {
-        return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == output.getItem();
+        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH))
+            return false;
+
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+
+            if (stack.isEmpty())
+                return true;
+
+            if (stack.getItem() == output.getItem() &&
+                    stack.getCount() + output.getCount() <= stack.getMaxStackSize())
+                return true;
+        }
+
+        return false;
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
-        int maxCount = itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ? 64 : itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
-        int currentCount = itemHandler.getStackInSlot(OUTPUT_SLOT).getCount();
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
 
-        return maxCount >= currentCount + count;
+            int maxCount = stack.isEmpty() ? 64 : stack.getMaxStackSize();
+            int currentCount = stack.getCount();
+
+            if (maxCount >= currentCount + count) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
