@@ -1,6 +1,26 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "wastedmod:block/recycler"
-  }
+    "down": "wastedmod:block/recycler_plastic_bottom",
+    "up": "wastedmod:block/recycler_plastic_top",
+    "north": "wastedmod:block/recycler_plastic_front",
+    "south": "wastedmod:block/recycler_plastic_back",
+    "west": "wastedmod:block/recycler_plastic_left",
+    "east": "wastedmod:block/recycler_plastic_right",
+    "particle": "wastedmod:block/recycler_plastic_back"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": { "uv": [0, 0, 16, 16], "texture": "#down" },
+        "up": { "uv": [0, 0, 16, 16], "texture": "#up" },
+        "north": { "uv": [0, 0, 16, 16], "texture": "#north" },
+        "south": { "uv": [0, 0, 16, 16], "texture": "#south" },
+        "west": { "uv": [0, 0, 16, 16], "texture": "#west" },
+        "east": { "uv": [0, 0, 16, 16], "texture": "#east" }
+      }
+    }
+  ]
 }
