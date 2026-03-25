@@ -1,13 +1,13 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "down": "wastedmod:block/recycler_plastic_bottom",
-    "up": "wastedmod:block/recycler_plastic_top",
-    "north": "wastedmod:block/recycler_plastic_front",
-    "south": "wastedmod:block/recycler_plastic_back",
-    "west": "wastedmod:block/recycler_plastic_left",
-    "east": "wastedmod:block/recycler_plastic_right",
-    "particle": "wastedmod:block/recycler_plastic_back"
+    "down": "wastedmod:block/recycler_glass_bottom",
+    "up": "wastedmod:block/recycler_glass_top",
+    "north": "wastedmod:block/recycler_glass_front",
+    "south": "wastedmod:block/recycler_glass_back",
+    "west": "wastedmod:block/recycler_glass_left",
+    "east": "wastedmod:block/recycler_glass_right",
+    "particle": "wastedmod:block/recycler_glass_back"
   },
   "elements": [
     {
