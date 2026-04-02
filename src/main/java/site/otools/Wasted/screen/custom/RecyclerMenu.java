@@ -37,8 +37,20 @@ public class RecyclerMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 0, 54, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 1, 104, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 0, 34, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 1, 79, 18));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 2, 97, 18));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 3, 115, 18));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 4, 133, 18));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 5, 79, 36));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 6, 97, 36));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 7, 115, 36));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 8, 133, 36));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 9, 79, 54));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 10, 97, 54));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 11, 115, 54));
+        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 12, 133, 54));
+
 
         addDataSlots(data);
     }
@@ -66,7 +78,7 @@ public class RecyclerMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;
+    private static final int TE_INVENTORY_SLOT_COUNT = 13;
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);

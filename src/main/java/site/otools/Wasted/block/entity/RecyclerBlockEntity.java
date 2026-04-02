@@ -2,8 +2,12 @@ package site.otools.Wasted.block.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -15,14 +19,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import site.otools.Wasted.item.ModItems;
+import site.otools.Wasted.WastedMod;
 import site.otools.Wasted.screen.custom.RecyclerMenu;
+
+import java.util.List;
 
 public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
 
-    public final ItemStackHandler itemHandler= new ItemStackHandler(2){
+    public final ItemStackHandler itemHandler= new ItemStackHandler(13){
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -31,19 +43,20 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     };
-    protected static final int INPUT_SLOT = 0;
-    protected static final int OUTPUT_SLOT = 1;
+    private static final int INPUT_SLOT = 0;
+    private static final int FIRST_OUTPUT_SLOT = 1;
+    private static final int LAST_OUTPUT_SLOT = 12;
+    private static final ResourceKey<LootTable> RECYCLER_LOOT =
+            ResourceKey.create(Registries.LOOT_TABLE,
+                    ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/trash"));
 
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 72;
 
-    public RecyclerBlockEntity(BlockPos pos, BlockState blockState){
-        this(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
-    }
 
-    protected RecyclerBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState blockState){
-        super(type, pos, blockState);
+    public RecyclerBlockEntity(BlockPos pos, BlockState blockState){
+        super(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
         data = new ContainerData() {
             @Override
             public int get(int i) {
@@ -53,13 +66,16 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
                     default -> 0;
                 };
             }
+
             @Override
             public void set(int i, int value) {
                 switch(i){
                     case 0 -> RecyclerBlockEntity.this.progress = value;
                     case 1 -> RecyclerBlockEntity.this.maxProgress = value;
+
                 }
             }
+
             @Override
             public int getCount() {
                 return 2;
@@ -101,13 +117,67 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         }
 
     }
-
     private void craftItem() {
-        ItemStack output = new ItemStack(ModItems.COIN.get(),1);
+        if (level == null || level.isClientSide()) return;
 
-        itemHandler.extractItem(INPUT_SLOT, 1, false);
-        itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
+        ServerLevel serverLevel = (ServerLevel) level;
+
+        LootTable table = serverLevel.getServer()
+                .reloadableRegistries()
+                .getLootTable(RECYCLER_LOOT);
+
+        LootParams params = new LootParams.Builder(serverLevel)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(worldPosition))
+                .create(LootContextParamSets.CHEST);
+
+        List<ItemStack> loot = table.getRandomItems(params);
+
+        System.out.println("Loot size: " + loot.size());
+        for (int idx = 0; idx < loot.size(); idx++) {
+            ItemStack stack = loot.get(idx);
+            System.out.println("Loot[" + idx + "]=" + stack);
+        }
+
+        if (loot.isEmpty()) return;
+
+        boolean insertedAny = false;
+        for (ItemStack output : loot) {
+            if (output.isEmpty()) continue; // Loot tables can legally return empty stacks; don't "consume" for those.
+
+            for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+                ItemStack stack = itemHandler.getStackInSlot(i);
+
+                if (stack.isEmpty()) {
+                    if (!output.copy().isEmpty()) {
+                        itemHandler.setStackInSlot(i, output.copy());
+                        insertedAny = true;
+                    }
+                    break;
+                }
+
+                if (stack.getItem() == output.getItem() &&
+                        stack.getCount() + output.getCount() <= stack.getMaxStackSize()) {
+
+                    stack.grow(output.getCount());
+                    itemHandler.setStackInSlot(i, stack);
+                    insertedAny = true;
+                    break;
+                }
+            }
+        }
+
+        // Only consume the input if we actually managed to insert something.
+        if (insertedAny) {
+            itemHandler.extractItem(INPUT_SLOT, 1, false);
+        }
+
+        System.out.println("InsertedAny=" + insertedAny);
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack s = itemHandler.getStackInSlot(i);
+            if (!s.isEmpty()) {
+                System.out.println("OutputSlot[" + i + "]=" + s);
+            }
+        }
     }
 
     private void resetProgress() {
@@ -124,24 +194,58 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
 
-    protected boolean hasRecipe() {
-        ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
-        ItemStack output = new ItemStack(ModItems.COIN.get());
+    private boolean hasRecipe() {
+        //trash input
+        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH)) {
+            return false;
+        }
 
-        return (input.is(ModItems.TRASH) || input.is(ModItems.GLASS) || input.is(ModItems.METAL)) &&
-                canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+
+            if (stack.isEmpty()) {
+                return true;
+            }
+
+            if (stack.getCount() < stack.getMaxStackSize()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    protected boolean canInsertItemIntoOutputSlot(ItemStack output) {
-        return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
-                itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == output.getItem();
+    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
+        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH))
+            return false;
+
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
+
+            if (stack.isEmpty())
+                return true;
+
+            if (stack.getItem() == output.getItem() &&
+                    stack.getCount() + output.getCount() <= stack.getMaxStackSize())
+                return true;
+        }
+
+        return false;
     }
 
-    protected boolean canInsertAmountIntoOutputSlot(int count) {
-        int maxCount = itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ? 64 : itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
-        int currentCount = itemHandler.getStackInSlot(OUTPUT_SLOT).getCount();
+    private boolean canInsertAmountIntoOutputSlot(int count) {
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack stack = itemHandler.getStackInSlot(i);
 
-        return maxCount >= currentCount + count;
+            int maxCount = stack.isEmpty() ? 64 : stack.getMaxStackSize();
+            int currentCount = stack.getCount();
+
+            if (maxCount >= currentCount + count) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
