@@ -18,6 +18,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -43,9 +44,9 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     };
-    private static final int INPUT_SLOT = 0;
-    private static final int FIRST_OUTPUT_SLOT = 1;
-    private static final int LAST_OUTPUT_SLOT = 12;
+    protected static final int INPUT_SLOT = 0;
+    protected static final int FIRST_OUTPUT_SLOT = 1;
+    protected static final int LAST_OUTPUT_SLOT = 12;
     private static final ResourceKey<LootTable> RECYCLER_LOOT =
             ResourceKey.create(Registries.LOOT_TABLE,
                     ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/trash"));
@@ -54,9 +55,11 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     private int progress = 0;
     private int maxProgress = 72;
 
-
     public RecyclerBlockEntity(BlockPos pos, BlockState blockState){
-        super(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
+        this(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
+    }
+    protected RecyclerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState){
+        super(type, pos, blockState);
         data = new ContainerData() {
             @Override
             public int get(int i) {
@@ -117,7 +120,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         }
 
     }
-    private void craftItem() {
+    protected void craftItem() {
         if (level == null || level.isClientSide()) return;
 
         ServerLevel serverLevel = (ServerLevel) level;
@@ -194,7 +197,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
 
-    private boolean hasRecipe() {
+    protected boolean hasRecipe() {
         //trash input
         if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH)) {
             return false;
@@ -215,7 +218,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         return false;
     }
 
-    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
+    protected boolean canInsertItemIntoOutputSlot(ItemStack output) {
         if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH))
             return false;
 
@@ -233,7 +236,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         return false;
     }
 
-    private boolean canInsertAmountIntoOutputSlot(int count) {
+    protected boolean canInsertAmountIntoOutputSlot(int count) {
         for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
             ItemStack stack = itemHandler.getStackInSlot(i);
 
