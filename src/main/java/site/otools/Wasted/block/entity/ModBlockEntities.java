@@ -17,6 +17,14 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("recycler_be", () -> BlockEntityType.Builder.of(
                     RecyclerBlockEntity::new, ModBlocks.RECYCLER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<GlassRecyclerBlockEntity>> GLASS_RECYCLER_BE =
+            BLOCK_ENTITIES.register("glass_recycler_be", () -> BlockEntityType.Builder.of(
+                    GlassRecyclerBlockEntity::new, ModBlocks.GLASS_RECYCLER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<MetalRecyclerBlockEntity>> METAL_RECYCLER_BE =
+            BLOCK_ENTITIES.register("metal_recycler_be", () -> BlockEntityType.Builder.of(
+                    MetalRecyclerBlockEntity::new, ModBlocks.METAL_RECYCLER.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

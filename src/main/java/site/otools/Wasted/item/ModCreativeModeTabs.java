@@ -25,6 +25,8 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModBlocks.TRASHBAG.get());
                         output.accept(ModBlocks.RECYCLER.get());
+                        output.accept(ModBlocks.GLASS_RECYCLER.get());
+                        output.accept(ModBlocks.METAL_RECYCLER.get());
                         //output.accept(ModItems.xxxx);
                     })
                     .build());

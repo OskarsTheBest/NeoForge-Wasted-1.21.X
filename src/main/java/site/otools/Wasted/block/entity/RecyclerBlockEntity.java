@@ -31,16 +31,19 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
             }
         }
     };
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    protected static final int INPUT_SLOT = 0;
+    protected static final int OUTPUT_SLOT = 1;
 
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 72;
 
-
     public RecyclerBlockEntity(BlockPos pos, BlockState blockState){
-        super(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
+        this(ModBlockEntities.RECYCLER_BE.get(), pos, blockState);
+    }
+
+    protected RecyclerBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState blockState){
+        super(type, pos, blockState);
         data = new ContainerData() {
             @Override
             public int get(int i) {
@@ -50,16 +53,13 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
                     default -> 0;
                 };
             }
-
             @Override
             public void set(int i, int value) {
                 switch(i){
                     case 0 -> RecyclerBlockEntity.this.progress = value;
                     case 1 -> RecyclerBlockEntity.this.maxProgress = value;
-
                 }
             }
-
             @Override
             public int getCount() {
                 return 2;
@@ -124,18 +124,20 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
 
-    private boolean hasRecipe() {
-        ItemStack output = new ItemStack(ModItems.COIN.get()); // hardcoded , can be loot table with diff items
-        return itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH) && // hardcoded for now, todo
+    protected boolean hasRecipe() {
+        ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
+        ItemStack output = new ItemStack(ModItems.COIN.get());
+
+        return (input.is(ModItems.TRASH) || input.is(ModItems.GLASS) || input.is(ModItems.METAL)) &&
                 canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
     }
 
-    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
+    protected boolean canInsertItemIntoOutputSlot(ItemStack output) {
         return itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
                 itemHandler.getStackInSlot(OUTPUT_SLOT).getItem() == output.getItem();
     }
 
-    private boolean canInsertAmountIntoOutputSlot(int count) {
+    protected boolean canInsertAmountIntoOutputSlot(int count) {
         int maxCount = itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() ? 64 : itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
         int currentCount = itemHandler.getStackInSlot(OUTPUT_SLOT).getCount();
 

@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
@@ -98,8 +99,14 @@ public class RecyclerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                pPlayer, ModBlocks.RECYCLER.get());
+        return ContainerLevelAccess.create(level, blockEntity.getBlockPos())
+                .evaluate((level, pos) -> {
+                    Block block = level.getBlockState(pos).getBlock();
+                    return (block == ModBlocks.RECYCLER.get() ||
+                            block == ModBlocks.GLASS_RECYCLER.get() ||
+                            block == ModBlocks.METAL_RECYCLER.get()) &&
+                            pPlayer.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64.0;
+                }, true);
     }
 
 
