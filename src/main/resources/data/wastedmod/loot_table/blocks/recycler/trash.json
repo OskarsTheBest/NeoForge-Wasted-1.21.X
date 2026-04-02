@@ -1,13 +1,12 @@
 {
-  "type": "minecraft:chest",
+  "type": "minecraft:chests",
   "pools": [
-
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "wasted:coin",
+          "name": "wastedmod:coin",
           "weight": 60
         },
         {
@@ -22,7 +21,6 @@
         }
       ]
     },
-
     {
       "rolls": 1,
       "conditions": [
@@ -49,7 +47,6 @@
         }
       ]
     },
-
     {
       "rolls": 1,
       "conditions": [
@@ -76,6 +73,6 @@
         }
       ]
     }
-
   ]
 }
+

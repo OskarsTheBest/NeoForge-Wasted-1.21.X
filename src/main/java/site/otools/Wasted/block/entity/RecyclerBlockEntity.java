@@ -27,6 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import site.otools.Wasted.item.ModItems;
+import site.otools.Wasted.WastedMod;
 import site.otools.Wasted.screen.custom.RecyclerMenu;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
     private static final int LAST_OUTPUT_SLOT = 12;
     private static final ResourceKey<LootTable> RECYCLER_LOOT =
             ResourceKey.create(Registries.LOOT_TABLE,
-                    ResourceLocation.fromNamespaceAndPath("wasted", "recycler/trash"));
+                    ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/trash"));
 
     protected final ContainerData data;
     private int progress = 0;
@@ -116,41 +117,41 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
         }
 
     }
-
     private void craftItem() {
         if (level == null || level.isClientSide()) return;
 
-        LootTable table = ((ServerLevel) level).getServer()
+        ServerLevel serverLevel = (ServerLevel) level;
+
+        LootTable table = serverLevel.getServer()
                 .reloadableRegistries()
                 .getLootTable(RECYCLER_LOOT);
 
-
-        // Build proper loot context for a block entity
-        LootParams.Builder builder = new LootParams.Builder((ServerLevel) level)
-                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(this.worldPosition))
-                .withParameter(LootContextParams.BLOCK_STATE, this.getBlockState())
-                .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
-                .withOptionalParameter(LootContextParams.THIS_ENTITY, null)
-                .withOptionalParameter(LootContextParams.DAMAGE_SOURCE, null);
-
-        LootParams params = builder.create(LootContextParamSets.CHEST);
+        LootParams params = new LootParams.Builder(serverLevel)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(worldPosition))
+                .create(LootContextParamSets.CHEST);
 
         List<ItemStack> loot = table.getRandomItems(params);
 
-        if (loot.isEmpty()) {
-
-            itemHandler.extractItem(INPUT_SLOT, 1, false); // still consume trash
-            return;
+        System.out.println("Loot size: " + loot.size());
+        for (int idx = 0; idx < loot.size(); idx++) {
+            ItemStack stack = loot.get(idx);
+            System.out.println("Loot[" + idx + "]=" + stack);
         }
 
-        itemHandler.extractItem(INPUT_SLOT, 1, false);
+        if (loot.isEmpty()) return;
 
+        boolean insertedAny = false;
         for (ItemStack output : loot) {
+            if (output.isEmpty()) continue; // Loot tables can legally return empty stacks; don't "consume" for those.
+
             for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
                 ItemStack stack = itemHandler.getStackInSlot(i);
 
                 if (stack.isEmpty()) {
-                    itemHandler.setStackInSlot(i, output.copy());
+                    if (!output.copy().isEmpty()) {
+                        itemHandler.setStackInSlot(i, output.copy());
+                        insertedAny = true;
+                    }
                     break;
                 }
 
@@ -159,8 +160,22 @@ public class RecyclerBlockEntity extends BlockEntity implements MenuProvider {
 
                     stack.grow(output.getCount());
                     itemHandler.setStackInSlot(i, stack);
+                    insertedAny = true;
                     break;
                 }
+            }
+        }
+
+        // Only consume the input if we actually managed to insert something.
+        if (insertedAny) {
+            itemHandler.extractItem(INPUT_SLOT, 1, false);
+        }
+
+        System.out.println("InsertedAny=" + insertedAny);
+        for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
+            ItemStack s = itemHandler.getStackInSlot(i);
+            if (!s.isEmpty()) {
+                System.out.println("OutputSlot[" + i + "]=" + s);
             }
         }
     }
