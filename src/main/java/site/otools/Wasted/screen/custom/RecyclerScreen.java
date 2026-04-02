@@ -14,7 +14,7 @@ import site.otools.Wasted.WastedMod;
 public class RecyclerScreen extends AbstractContainerScreen<RecyclerMenu> {
 
     private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/recycler_gui.png");
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/recycler_gui2.png");
     private static final ResourceLocation ARROW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/arrow_progress.png");
 
@@ -38,7 +38,7 @@ public class RecyclerScreen extends AbstractContainerScreen<RecyclerMenu> {
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(ARROW_TEXTURE,x + 73, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
+            guiGraphics.blit(ARROW_TEXTURE,x + 53, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
         }
     }
 
