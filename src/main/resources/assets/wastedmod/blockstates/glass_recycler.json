@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "wastedmod:block/glass_recycler" },
+    "facing=south": { "model": "wastedmod:block/glass_recycler", "y": 180 },
+    "facing=east": { "model": "wastedmod:block/glass_recycler", "y": 90 },
+    "facing=west": { "model": "wastedmod:block/glass_recycler", "y": 270 }
+  }
+}
