@@ -69,10 +69,10 @@ public class TrashbagBlock extends HorizontalDirectionalBlock {
             } else if (random == 2) {
                 drop = new ItemStack(ModItems.METAL.get());
             } else {
-                drop = new ItemStack(ModItems.GLASS.get());
+                drop = new ItemStack(ModItems.GLASSHATTER.get());
             }
 
-            popResource(level, pos, drop);
+                popResource(level, pos, drop);
+            }
         }
-    }
 }
