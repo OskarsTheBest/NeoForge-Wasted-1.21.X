@@ -13,8 +13,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> TRASH = ITEMS.register("trash", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> GLASS = ITEMS.register("glass", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> GLASSHATTER = ITEMS.register("glasshatter", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> METAL = ITEMS.register("metal", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PLASTIC = ITEMS.register("plastic", () -> new Item(new Item.Properties()));
 
     public static final DeferredItem<Item> TRASHBAG_V1 = ITEMS.register("trashbag_v1",
             () -> new BlockItem(ModBlocks.TRASHBAG_V1.get(), new Item.Properties()));
