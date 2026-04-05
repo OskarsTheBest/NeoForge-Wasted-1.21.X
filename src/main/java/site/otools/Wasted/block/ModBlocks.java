@@ -15,6 +15,8 @@ import site.otools.Wasted.WastedMod;
 import site.otools.Wasted.block.custom.RecyclerBlock;
 import site.otools.Wasted.block.custom.TrashbagBlock;
 import site.otools.Wasted.item.ModItems;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.MapColor;
 
 import java.util.function.Supplier;
 
@@ -29,6 +31,20 @@ public class ModBlocks {
     public static final DeferredBlock<Block> GLASS_RECYCLER = registerBlock("glass_recycler", () -> new GlassRecyclerBlock(BlockBehaviour.Properties.of()));
 
     public static final DeferredBlock<Block> METAL_RECYCLER = registerBlock("metal_recycler", () -> new MetalRecyclerBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredBlock<Block> TRASHBAG_V1 = BLOCKS.register("trashbag_v1",
+            () -> new TrashbagBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .strength(0.5f)
+                    .sound(SoundType.WOOL)
+                    .noOcclusion()));
+
+    public static final DeferredBlock<Block> TRASHBAG_V2 = BLOCKS.register("trashbag_v2",
+            () -> new TrashbagBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .strength(0.5f)
+                    .sound(SoundType.WOOL)
+                    .noOcclusion()));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);

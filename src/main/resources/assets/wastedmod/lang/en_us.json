@@ -3,6 +3,7 @@
   "item.wastedmod.coin": "Coin",
   "block.wastedmod.trashbag": "Trashbag",
   "block.wastedmod.recycler": "Recycler",
-  "creativetab.wastedmod.wasted_items": "Wasted Items"
-
+  "creativetab.wastedmod.wasted_items": "Wasted Items",
+  "block.wastedmod.trashbag_v1": "Trashbag V1",
+  "block.wastedmod.trashbag_v2": "Trashbag V2"
 }
