@@ -11,9 +11,9 @@ public class ModItems {
 
     public static final DeferredItem<Item> TRASH = ITEMS.register("trash", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> GLASS = ITEMS.register("glass", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> GLASSHATTER = ITEMS.register("glasshatter", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> METAL = ITEMS.register("metal", () -> new Item(new Item.Properties()));
-
+    public static final DeferredItem<Item> PLASTIC = ITEMS.register("plastic", () -> new Item(new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
