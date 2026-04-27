@@ -15,6 +15,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import site.otools.Wasted.WastedMod;
+import site.otools.Wasted.item.ModItems;
 
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class MetalRecyclerBlockEntity extends RecyclerBlockEntity {
                 input.is(net.neoforged.neoforge.common.Tags.Items.NUGGETS) ||
                 input.is(ItemTags.create(ResourceLocation.fromNamespaceAndPath("minecraft", "iron_ores"))) ||
                 input.getItem() == Items.CHAIN ||
-                input.getItem() == Items.IRON_BARS;
+                input.getItem() == Items.IRON_BARS ||
+                input.is(ModItems.METAL);
 
         if (!isMetalItem) return false;
 

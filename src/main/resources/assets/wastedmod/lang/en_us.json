@@ -1,11 +1,15 @@
 {
   "item.wastedmod.trash": "Trash",
   "item.wastedmod.coin": "Coin",
+  "item.wastedmod.glasshatter": "Glass Shatter",
+  "item.wastedmod.metal": "Metal pieces",
+  "item.wastedmod.plastic": "Plastic",
   "block.wastedmod.trashbag": "Trashbag",
   "block.wastedmod.recycler": "Recycler",
-  "creativetab.wastedmod.wasted_items": "Wasted Items",
   "block.wastedmod.trashbag_v1": "Trashbag V1",
   "block.wastedmod.trashbag_v2": "Trashbag V2",
   "block.wastedmod.glass_recycler": "Glass Recycler",
   "block.wastedmod.metal_recycler": "Metal Recycler"
+  "creativetab.wastedmod.wasted_items": "Wasted Items"
+
 }

@@ -29,7 +29,8 @@ public class GlassRecyclerBlockEntity extends RecyclerBlockEntity {
         if (input.isEmpty()) return false;
 
         if (!input.is(net.neoforged.neoforge.common.Tags.Items.GLASS_BLOCKS) &&
-                !input.is(net.neoforged.neoforge.common.Tags.Items.GLASS_PANES)) {
+                !input.is(net.neoforged.neoforge.common.Tags.Items.GLASS_PANES) &&
+        !input.is(ModItems.GLASSHATTER)) {
             return false;
         }
 
