@@ -48,7 +48,7 @@ public class PlasticRecyclerBlockEntity extends BlockEntity implements MenuProvi
     protected static final int LAST_OUTPUT_SLOT = 12;
     private static final ResourceKey<LootTable> RECYCLER_LOOT =
             ResourceKey.create(Registries.LOOT_TABLE,
-                    ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/trash"));
+                    ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/plastic"));
 
     protected final ContainerData data;
     private int progress = 0;
@@ -83,7 +83,7 @@ public class PlasticRecyclerBlockEntity extends BlockEntity implements MenuProvi
         };
     }
     @Override
-    public Component getDisplayName() {return Component.translatable("block.wasted.plastic_recycler");}
+    public Component getDisplayName() {return Component.translatable("block.wastedmod.plastic_recycler");}
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player player){
@@ -194,9 +194,10 @@ public class PlasticRecyclerBlockEntity extends BlockEntity implements MenuProvi
     protected boolean hasRecipe() {
         ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
 
-        boolean isMetalItem = input.is(ModItems.PLASTIC);
+        boolean isPlasticItem =
+                input.getItem() == ModItems.PLASTIC.get();
 
-        if (!isMetalItem) return false;
+        if (!isPlasticItem) return false;
 
         for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {
             ItemStack stack = itemHandler.getStackInSlot(i);
@@ -205,9 +206,8 @@ public class PlasticRecyclerBlockEntity extends BlockEntity implements MenuProvi
         }
         return false;
     }
-
     protected boolean canInsertItemIntoOutputSlot(ItemStack output) {
-        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.TRASH))
+        if (!itemHandler.getStackInSlot(INPUT_SLOT).is(ModItems.PLASTIC))
             return false;
 
         for (int i = FIRST_OUTPUT_SLOT; i <= LAST_OUTPUT_SLOT; i++) {

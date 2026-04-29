@@ -9,7 +9,8 @@
   "block.wastedmod.trashbag_v1": "Trashbag V1",
   "block.wastedmod.trashbag_v2": "Trashbag V2",
   "block.wastedmod.glass_recycler": "Glass Recycler",
-  "block.wastedmod.metal_recycler": "Metal Recycler"
+  "block.wastedmod.metal_recycler": "Metal Recycler",
+  "block.wastedmod.plastic_recycler": "Plastic Recycler",
   "creativetab.wastedmod.wasted_items": "Wasted Items"
 
 }

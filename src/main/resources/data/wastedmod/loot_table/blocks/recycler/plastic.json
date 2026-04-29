@@ -7,17 +7,17 @@
         {
           "type": "minecraft:item",
           "name": "wastedmod:coin",
-          "weight": 60
+          "weight": 50
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:stick",
-          "weight": 25
+          "name": "minecraft:string",
+          "weight": 30
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:paper",
-          "weight": 15
+          "name": "minecraft:leather",
+          "weight": 20
         }
       ]
     },
@@ -26,24 +26,24 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.25
+          "chance": 0.30
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_nugget",
-          "weight": 70
+          "name": "minecraft:slime_ball",
+          "weight": 60
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:copper_ingot",
-          "weight": 25
+          "name": "minecraft:glass_bottle",
+          "weight": 30
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:gold_nugget",
-          "weight": 5
+          "name": "minecraft:bucket",
+          "weight": 10
         }
       ]
     },
@@ -52,14 +52,14 @@
       "conditions": [
         {
           "condition": "minecraft:random_chance",
-          "chance": 0.02
+          "chance": 0.05
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "minecraft:diamond",
-          "weight": 5
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -68,11 +68,10 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:netherite_scrap",
+          "name": "minecraft:nether_star",
           "weight": 1
         }
       ]
     }
   ]
 }
-

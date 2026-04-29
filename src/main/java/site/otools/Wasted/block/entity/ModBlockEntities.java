@@ -25,9 +25,9 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("metal_recycler_be", () -> BlockEntityType.Builder.of(
                     MetalRecyclerBlockEntity::new, ModBlocks.METAL_RECYCLER.get()).build(null));
 
-    public static final Supplier<BlockEntityType<MetalRecyclerBlockEntity>> PLASTIC_RECYCLER_BE =
+    public static final Supplier<BlockEntityType<PlasticRecyclerBlockEntity>> PLASTIC_RECYCLER_BE =
             BLOCK_ENTITIES.register("plastic_recycler_be", () -> BlockEntityType.Builder.of(
-                    MetalRecyclerBlockEntity::new, ModBlocks.PLASTIC_RECYCLER.get()).build(null));
+                    PlasticRecyclerBlockEntity::new, ModBlocks.PLASTIC_RECYCLER.get()).build(null));
 
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);

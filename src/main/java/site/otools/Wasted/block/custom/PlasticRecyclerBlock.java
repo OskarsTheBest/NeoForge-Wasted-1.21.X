@@ -26,7 +26,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import site.otools.Wasted.block.entity.ModBlockEntities;
 import site.otools.Wasted.block.entity.PlasticRecyclerBlockEntity;
-import site.otools.Wasted.block.entity.RecyclerBlockEntity;
 
 public class PlasticRecyclerBlock extends BaseEntityBlock {
     public static final MapCodec<PlasticRecyclerBlock> CODEC = simpleCodec(PlasticRecyclerBlock::new);
@@ -40,7 +39,7 @@ public class PlasticRecyclerBlock extends BaseEntityBlock {
 
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override
@@ -65,7 +64,7 @@ public class PlasticRecyclerBlock extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving){
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof RecyclerBlockEntity recyclerBlockEntity){
+            if (blockEntity instanceof PlasticRecyclerBlockEntity recyclerBlockEntity){
                 recyclerBlockEntity.drops();
             }
         }
@@ -77,9 +76,12 @@ public class PlasticRecyclerBlock extends BaseEntityBlock {
                                               Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!plevel.isClientSide()) {
             BlockEntity entity = plevel.getBlockEntity(pPos);
-            if(entity instanceof RecyclerBlockEntity recyclerBlockEntity){
-                ((ServerPlayer) pPlayer).openMenu(new SimpleMenuProvider(recyclerBlockEntity, Component.literal("Recycler")), pPos);
-            } else {
+            if(entity instanceof PlasticRecyclerBlockEntity recyclerBlockEntity){
+                ((ServerPlayer) pPlayer).openMenu(
+                        new SimpleMenuProvider(recyclerBlockEntity, Component.literal("Recycler")),
+                        pPos
+                );
+            }else {
                 throw new IllegalStateException("Container provider is missing");
             }
         }
@@ -93,7 +95,7 @@ public class PlasticRecyclerBlock extends BaseEntityBlock {
             return null;
         }
 
-        return createTickerHelper(blockEntityType, ModBlockEntities.RECYCLER_BE.get(),
+        return createTickerHelper(blockEntityType, ModBlockEntities.PLASTIC_RECYCLER_BE.get(),
                 (level1, blockPos, blockState, blockEntity) ->blockEntity.tick(level1, blockPos, blockState));
     }
 

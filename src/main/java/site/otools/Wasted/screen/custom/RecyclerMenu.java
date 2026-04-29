@@ -13,44 +13,52 @@ import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 import site.otools.Wasted.block.ModBlocks;
 import site.otools.Wasted.block.custom.RecyclerBlock;
+import site.otools.Wasted.block.entity.PlasticRecyclerBlockEntity;
 import site.otools.Wasted.block.entity.RecyclerBlockEntity;
 import site.otools.Wasted.screen.ModMenuTypes;
 
 public class RecyclerMenu extends AbstractContainerMenu {
-    public final RecyclerBlockEntity blockEntity;
+    public final BlockEntity blockEntity;
     private final Level level;
     private final ContainerData data;
-
-
 
     public RecyclerMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
         this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
-
     public RecyclerMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.RECYCLER_MENU.get(), pContainerId);
-        this.blockEntity = ((RecyclerBlockEntity) entity);
+
+
+        if (!(entity instanceof RecyclerBlockEntity) && !(entity instanceof PlasticRecyclerBlockEntity)) {
+            throw new IllegalStateException("BlockEntity is not a valid recycler: " + entity);
+        }
+
+        this.blockEntity = entity;
         this.level = inv.player.level();
         this.data = data;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 0, 34, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 1, 79, 18));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 2, 97, 18));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 3, 115, 18));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 4, 133, 18));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 5, 79, 36));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 6, 97, 36));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 7, 115, 36));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 8, 133, 36));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 9, 79, 54));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 10, 97, 54));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 11, 115, 54));
-        this.addSlot(new SlotItemHandler(blockEntity.itemHandler, 12, 133, 54));
 
+        var handler = (entity instanceof RecyclerBlockEntity recycler)
+                ? recycler.itemHandler
+                : ((PlasticRecyclerBlockEntity) entity).itemHandler;
+
+        this.addSlot(new SlotItemHandler(handler, 0, 34, 34));
+        this.addSlot(new SlotItemHandler(handler, 1, 79, 18));
+        this.addSlot(new SlotItemHandler(handler, 2, 97, 18));
+        this.addSlot(new SlotItemHandler(handler, 3, 115, 18));
+        this.addSlot(new SlotItemHandler(handler, 4, 133, 18));
+        this.addSlot(new SlotItemHandler(handler, 5, 79, 36));
+        this.addSlot(new SlotItemHandler(handler, 6, 97, 36));
+        this.addSlot(new SlotItemHandler(handler, 7, 115, 36));
+        this.addSlot(new SlotItemHandler(handler, 8, 133, 36));
+        this.addSlot(new SlotItemHandler(handler, 9, 79, 54));
+        this.addSlot(new SlotItemHandler(handler, 10, 97, 54));
+        this.addSlot(new SlotItemHandler(handler, 11, 115, 54));
+        this.addSlot(new SlotItemHandler(handler, 12, 133, 54));
 
         addDataSlots(data);
     }
@@ -67,8 +75,6 @@ public class RecyclerMenu extends AbstractContainerMenu {
         return maxProgress != 0 && progress != 0 ? progress * arrowPixelSize / maxProgress : 0;
     }
 
-    // https://github.com/diesieben07/SevenCommons
-
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -77,8 +83,8 @@ public class RecyclerMenu extends AbstractContainerMenu {
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
-    // THIS YOU HAVE TO DEFINE!
     private static final int TE_INVENTORY_SLOT_COUNT = 13;
+
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
@@ -88,23 +94,26 @@ public class RecyclerMenu extends AbstractContainerMenu {
 
         if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
 
-            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT, false)) {
+            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX,
+                    TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
+            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX,
+                    VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
                 return ItemStack.EMPTY;
             }
         } else {
             System.out.println("Invalid slotIndex:" + pIndex);
             return ItemStack.EMPTY;
         }
+
         if (sourceStack.getCount() == 0) {
             sourceSlot.set(ItemStack.EMPTY);
         } else {
             sourceSlot.setChanged();
         }
+
         sourceSlot.onTake(playerIn, sourceStack);
         return copyOfSourceStack;
     }
@@ -116,11 +125,11 @@ public class RecyclerMenu extends AbstractContainerMenu {
                     Block block = level.getBlockState(pos).getBlock();
                     return (block == ModBlocks.RECYCLER.get() ||
                             block == ModBlocks.GLASS_RECYCLER.get() ||
-                            block == ModBlocks.METAL_RECYCLER.get()) &&
+                            block == ModBlocks.METAL_RECYCLER.get() ||
+                            block == ModBlocks.PLASTIC_RECYCLER.get()) &&
                             pPlayer.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64.0;
                 }, true);
     }
-
 
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; ++i) {
