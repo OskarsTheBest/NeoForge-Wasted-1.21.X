@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "down": "wastedmod:block/recycler_mega_bottom",
+    "up": "wastedmod:block/recycler_mega_top",
+    "north": "wastedmod:block/recycler_mega_front",
+    "south": "wastedmod:block/recycler_mega_back",
+    "west": "wastedmod:block/recycler_mega_left",
+    "east": "wastedmod:block/recycler_mega_right",
+    "particle": "wastedmod:block/recycler_mega_back"
+  }
+}

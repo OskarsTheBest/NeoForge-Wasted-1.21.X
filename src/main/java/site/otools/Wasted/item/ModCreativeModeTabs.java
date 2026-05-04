@@ -34,6 +34,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.GLASS_RECYCLER.get());
                         output.accept(ModBlocks.METAL_RECYCLER.get());
                         output.accept(ModBlocks.PLASTIC_RECYCLER.get());
+                        output.accept(ModBlocks.MEGA_RECYCLER.get());
                         //output.accept(ModItems.xxxx);
                     })
                     .build());

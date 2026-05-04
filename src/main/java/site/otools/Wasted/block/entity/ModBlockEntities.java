@@ -29,6 +29,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("plastic_recycler_be", () -> BlockEntityType.Builder.of(
                     PlasticRecyclerBlockEntity::new, ModBlocks.PLASTIC_RECYCLER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<MegaRecyclerBlockEntity>> MEGA_RECYCLER_BE =
+            BLOCK_ENTITIES.register("mega_recycler_be", () -> BlockEntityType.Builder.of(
+                    MegaRecyclerBlockEntity::new, ModBlocks.MEGA_RECYCLER.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

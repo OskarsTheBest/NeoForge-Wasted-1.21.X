@@ -27,6 +27,7 @@ import site.otools.Wasted.block.entity.ModBlockEntities;
 import site.otools.Wasted.item.ModCreativeModeTabs;
 import site.otools.Wasted.item.ModItems;
 import site.otools.Wasted.screen.ModMenuTypes;
+import site.otools.Wasted.screen.custom.MegaRecyclerScreen;
 import site.otools.Wasted.screen.custom.RecyclerScreen;
 
 import static net.minecraft.world.item.Items.registerBlock;
@@ -75,6 +76,7 @@ public class WastedMod {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.RECYCLER_MENU.get(), RecyclerScreen::new);
+            event.register(ModMenuTypes.MEGA_RECYCLER_MENU.get(), MegaRecyclerScreen::new);
         }
     }
 

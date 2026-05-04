@@ -31,6 +31,8 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> PLASTIC_RECYCLER = registerBlock("plastic_recycler", () -> new PlasticRecyclerBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> MEGA_RECYCLER = registerBlock("mega_recycler", () -> new MegaRecyclerBlock(BlockBehaviour.Properties.of()));
+
     public static final DeferredBlock<Block> TRASHBAG_V1 = BLOCKS.register("trashbag_v1",
             () -> new TrashbagBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
