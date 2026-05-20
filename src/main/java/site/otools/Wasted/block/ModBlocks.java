@@ -21,7 +21,7 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS=
             DeferredRegister.createBlocks(WastedMod.MOD_ID);
 
-    public static final DeferredBlock<Block> TRASHBAG = registerBlock("trashbag", ()-> new TrashbagBlock(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final DeferredBlock<Block> TRASHBAG = registerBlock("trashbag", ()-> new TrashbagBlock(BlockBehaviour.Properties.of().strength(1.167f).noOcclusion()));
 
     public static final DeferredBlock<Block> RECYCLER = registerBlock("recycler", ()-> new RecyclerBlock(BlockBehaviour.Properties.of()));
 
@@ -36,14 +36,14 @@ public class ModBlocks {
     public static final DeferredBlock<Block> TRASHBAG_V1 = BLOCKS.register("trashbag_v1",
             () -> new TrashbagBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
-                    .strength(0.5f)
+                    .strength(1.167f)
                     .sound(SoundType.WOOL)
                     .noOcclusion()));
 
     public static final DeferredBlock<Block> TRASHBAG_V2 = BLOCKS.register("trashbag_v2",
             () -> new TrashbagBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
-                    .strength(0.5f)
+                    .strength(1.167f)
                     .sound(SoundType.WOOL)
                     .noOcclusion()));
 

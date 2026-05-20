@@ -1,6 +1,12 @@
 package site.otools.Wasted.item;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -11,6 +17,16 @@ import net.minecraft.world.item.BlockItem;
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(WastedMod.MOD_ID);
 
+    public static final DeferredItem<Item> TRASHGRABBER = ITEMS.register("trashgrabber", () -> new Item(
+            new Item.Properties()
+                    .component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder()
+                            .add(Attributes.BLOCK_INTERACTION_RANGE,
+                                    new AttributeModifier(
+                                            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "trashgrabber_reach"),
+                                            2.0,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .build())));
     public static final DeferredItem<Item> TRASH = ITEMS.register("trash", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> GLASSHATTER = ITEMS.register("glasshatter", () -> new Item(new Item.Properties()));

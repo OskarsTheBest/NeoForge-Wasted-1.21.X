@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -53,26 +52,34 @@ public class TrashbagBlock extends HorizontalDirectionalBlock {
     }
 
     @Override
+    public float getDestroyProgress(BlockState state, Player player, BlockGetter level, BlockPos pos) {
+        if (player.getMainHandItem().is(ModItems.TRASHGRABBER.get())) {
+            return 1.0F;
+        }
+        return super.getDestroyProgress(state, player, level, pos);
+    }
+
+    @Override
     public void playerDestroy(Level level, Player player, BlockPos pos,
                               BlockState state, @Nullable BlockEntity blockEntity,
                               ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
 
-        if (!level.isClientSide) {
-            int random = level.random.nextInt(4);
-            ItemStack drop;
+        if (level.isClientSide) return;
 
-            if (random == 0) {
-                drop = new ItemStack(Items.COAL);
-            } else if (random == 1) {
-                drop = new ItemStack(ModItems.TRASH.get());
-            } else if (random == 2) {
-                drop = new ItemStack(ModItems.METAL.get());
-            } else {
-                drop = new ItemStack(ModItems.GLASSHATTER.get());
-            }
+        boolean withGrabber = tool.is(ModItems.TRASHGRABBER.get());
+        int trashbagChance = withGrabber ? 50 : 25;
 
-                popResource(level, pos, drop);
-            }
+        ItemStack drop;
+        if (level.random.nextInt(100) < trashbagChance) {
+            drop = new ItemStack(ModItems.TRASH.get());
+        } else {
+            drop = switch (level.random.nextInt(3)) {
+                case 0 -> new ItemStack(ModItems.GLASSHATTER.get());
+                case 1 -> new ItemStack(ModItems.METAL.get());
+                default -> new ItemStack(ModItems.PLASTIC.get());
+            };
         }
+        popResource(level, pos, drop);
+    }
 }

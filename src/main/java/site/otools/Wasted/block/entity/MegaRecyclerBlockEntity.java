@@ -261,6 +261,9 @@ public class MegaRecyclerBlockEntity extends BlockEntity implements MenuProvider
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
         itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+        if (itemHandler.getSlots() != SLOT_COUNT) {
+            itemHandler.setSize(SLOT_COUNT);
+        }
         progress = pTag.getInt("mega_recycler.progress");
         maxProgress = pTag.getInt("mega_recycler.max_progress");
     }

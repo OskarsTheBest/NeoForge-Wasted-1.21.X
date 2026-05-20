@@ -25,6 +25,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.GLASSHATTER);
                         output.accept(ModItems.METAL);
                         output.accept(ModItems.PLASTIC);
+                        output.accept(ModItems.TRASHGRABBER);
 
 
                         output.accept(ModBlocks.TRASHBAG.get());
