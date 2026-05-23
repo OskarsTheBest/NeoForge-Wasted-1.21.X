@@ -29,6 +29,7 @@ import site.otools.Wasted.item.ModItems;
 import site.otools.Wasted.screen.ModMenuTypes;
 import site.otools.Wasted.screen.custom.MegaRecyclerScreen;
 import site.otools.Wasted.screen.custom.RecyclerScreen;
+import site.otools.Wasted.worldgen.ModFeatures;
 
 import static net.minecraft.world.item.Items.registerBlock;
 
@@ -47,6 +48,7 @@ public class WastedMod {
         ModBlocks.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModFeatures.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

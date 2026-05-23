@@ -1,36 +1,72 @@
 package site.otools.Wasted;
 
-import java.util.List;
-
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    public static final ModConfigSpec.DoubleValue TRASH_MOUNTAIN_SPAWN_CHANCE = BUILDER
+            .comment("Per-chunk chance for a Trash Mountain to spawn in a swamp biome.",
+                    "Range: 0.0 (never) to 1.0 (every chunk). Default: 0.013 (~1 in 75 chunks).")
+            .defineInRange("trashMountainSpawnChance", 0.013, 0.0, 1.0);
 
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    public static final ModConfigSpec.IntValue TRASH_MOUNTAIN_MIN_SWAMP_NEIGHBORS = BUILDER
+            .comment("How many of the 8 surrounding sample points (16 blocks out) must also be swamp biome",
+                    "before a Trash Mountain is allowed to spawn. Higher = needs a bigger swamp.",
+                    "Range: 0 (no size check) to 8 (must be surrounded by swamp). Default: 6.")
+            .defineInRange("trashMountainMinSwampNeighbors", 6, 0, 8);
 
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    // --- Trash piles inside vanilla structures ---
+    // Each value is the chance, per chunk that overlaps the structure, to drop a cluster of trashbags.
+    // A structure spans many chunks, so higher values = trash in more parts of the structure.
 
-    // a list of strings that are treated as resource locations for items
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_MINESHAFT = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in mineshafts. Default: 0.25.")
+            .defineInRange("trashPileMineshaftChance", 0.25, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_STRONGHOLD = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in strongholds. Default: 0.10.")
+            .defineInRange("trashPileStrongholdChance", 0.10, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_TRAIL_RUINS = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in trail ruins. Default: 0.25.")
+            .defineInRange("trashPileTrailRuinsChance", 0.25, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_JUNGLE_TEMPLE = BUILDER
+            .comment("Per-overlapping-chunk chance for an EXTRA trashbag cluster in jungle temples.",
+                    "Jungle temples also always get at least one cluster in their origin chunk. Default: 0.25.")
+            .defineInRange("trashPileJungleTempleChance", 0.25, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_VILLAGE = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in villages (incl. zombie villages). Default: 0.25.")
+            .defineInRange("trashPileVillageChance", 0.25, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_BASTION = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in bastion remnants. Default: 0.10.")
+            .defineInRange("trashPileBastionChance", 0.10, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_PILE_OCEAN_RUINS = BUILDER
+            .comment("Per-overlapping-chunk chance for a trashbag cluster in ocean ruins. Default: 0.20.")
+            .defineInRange("trashPileOceanRuinsChance", 0.20, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASH_HEAP_SPAWN_CHANCE = BUILDER
+            .comment("Per-chunk chance for a little dirt-pile-with-trashbags to spawn on the overworld surface",
+                    "(dry land only, never in ocean/water). Default: 0.02 (~1 in 50 chunks).")
+            .defineInRange("trashHeapSpawnChance", 0.02, 0.0, 1.0);
+
+    // --- Trashbag break drops ---
+    // When a trashbag is broken it always drops one item: either TRASH (the "best" drop) or one
+    // of glasshatter/metal/plastic. These set the chance of getting TRASH; the rest is split evenly.
+
+    public static final ModConfigSpec.DoubleValue TRASHBAG_TRASH_CHANCE = BUILDER
+            .comment("Chance to drop the TRASH item when breaking a trashbag by hand.",
+                    "Otherwise drops glasshatter/metal/plastic evenly. Default: 0.25.")
+            .defineInRange("trashbagTrashChance", 0.25, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue TRASHBAG_TRASH_CHANCE_GRABBER = BUILDER
+            .comment("Chance to drop the TRASH item when breaking a trashbag with the Trash Grabber.",
+                    "Otherwise drops glasshatter/metal/plastic evenly. Default: 0.50.")
+            .defineInRange("trashbagTrashChanceWithGrabber", 0.50, 0.0, 1.0);
 
     static final ModConfigSpec SPEC = BUILDER.build();
-
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
-    }
 }

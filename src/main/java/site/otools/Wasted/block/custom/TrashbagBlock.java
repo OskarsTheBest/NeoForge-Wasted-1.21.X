@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import org.jetbrains.annotations.Nullable;
+import site.otools.Wasted.Config;
 import site.otools.Wasted.item.ModItems;
 
 public class TrashbagBlock extends HorizontalDirectionalBlock {
@@ -68,10 +69,12 @@ public class TrashbagBlock extends HorizontalDirectionalBlock {
         if (level.isClientSide) return;
 
         boolean withGrabber = tool.is(ModItems.TRASHGRABBER.get());
-        int trashbagChance = withGrabber ? 50 : 25;
+        double trashChance = withGrabber
+                ? Config.TRASHBAG_TRASH_CHANCE_GRABBER.get()
+                : Config.TRASHBAG_TRASH_CHANCE.get();
 
         ItemStack drop;
-        if (level.random.nextInt(100) < trashbagChance) {
+        if (level.random.nextFloat() < trashChance) {
             drop = new ItemStack(ModItems.TRASH.get());
         } else {
             drop = switch (level.random.nextInt(3)) {
