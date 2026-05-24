@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "wastedmod:trash"
+    }
+  },
+  "result": {
+    "id": "wastedmod:trashbag_block",
+    "count": 1
+  }
+}

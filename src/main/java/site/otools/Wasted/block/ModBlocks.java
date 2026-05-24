@@ -33,6 +33,12 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> MEGA_RECYCLER = registerBlock("mega_recycler", () -> new MegaRecyclerBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredBlock<Block> TRASHBAG_BLOCK = registerBlock("trashbag_block",
+            () -> new TrashbagFullBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_GRAY)
+                    .strength(1.0f)
+                    .sound(SoundType.WOOL)));
+
     public static final DeferredBlock<Block> TRASHBAG_V1 = BLOCKS.register("trashbag_v1",
             () -> new TrashbagBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "north": "wastedmod:block/trashbagblock_front",
+    "south": "wastedmod:block/trashbagblock_back",
+    "east": "wastedmod:block/trashbagblock_right",
+    "west": "wastedmod:block/trashbagblock_left",
+    "up": "wastedmod:block/trashbagblock_top",
+    "down": "wastedmod:block/trashbagblock_bottom",
+    "particle": "wastedmod:block/trashbagblock_front"
+  }
+}
