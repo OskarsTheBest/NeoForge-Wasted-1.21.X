@@ -11,10 +11,12 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import site.otools.Wasted.WastedMod;
+import site.otools.Wasted.item.FuelBlockItem;
 import site.otools.Wasted.item.ModItems;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -37,7 +39,8 @@ public class ModBlocks {
             () -> new TrashbagFullBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
                     .strength(1.0f)
-                    .sound(SoundType.WOOL)));
+                    .sound(SoundType.WOOL)),
+            block -> new FuelBlockItem(block, new Item.Properties(), 3200));
 
     public static final DeferredBlock<Block> TRASHBAG_V1 = BLOCKS.register("trashbag_v1",
             () -> new TrashbagBlock(BlockBehaviour.Properties.of()
@@ -56,6 +59,13 @@ public class ModBlocks {
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block,
+                                                                    Function<T, Item> itemFactory) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
+        ModItems.ITEMS.register(name, () -> itemFactory.apply(toReturn.get()));
         return toReturn;
     }
 

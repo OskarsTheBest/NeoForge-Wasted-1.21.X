@@ -50,11 +50,21 @@ public class WastedMod {
         ModBlockEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::registerCapabilities);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
 
+    }
+
+    private void registerCapabilities(net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent event) {
+        var cap = net.neoforged.neoforge.capabilities.Capabilities.ItemHandler.BLOCK;
+        event.registerBlockEntity(cap, ModBlockEntities.RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
+        event.registerBlockEntity(cap, ModBlockEntities.GLASS_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
+        event.registerBlockEntity(cap, ModBlockEntities.METAL_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
+        event.registerBlockEntity(cap, ModBlockEntities.PLASTIC_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
+        event.registerBlockEntity(cap, ModBlockEntities.MEGA_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {

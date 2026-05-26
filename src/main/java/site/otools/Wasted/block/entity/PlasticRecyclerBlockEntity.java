@@ -46,6 +46,13 @@ public class PlasticRecyclerBlockEntity extends BlockEntity implements MenuProvi
     protected static final int INPUT_SLOT = 0;
     protected static final int FIRST_OUTPUT_SLOT = 1;
     protected static final int LAST_OUTPUT_SLOT = 12;
+
+    private final RecyclerItemHandler sidedItemHandler =
+            new RecyclerItemHandler(itemHandler, INPUT_SLOT, INPUT_SLOT, FIRST_OUTPUT_SLOT, LAST_OUTPUT_SLOT);
+
+    public net.neoforged.neoforge.items.IItemHandler getSidedItemHandler() {
+        return sidedItemHandler;
+    }
     private static final ResourceKey<LootTable> RECYCLER_LOOT =
             ResourceKey.create(Registries.LOOT_TABLE,
                     ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/plastic"));

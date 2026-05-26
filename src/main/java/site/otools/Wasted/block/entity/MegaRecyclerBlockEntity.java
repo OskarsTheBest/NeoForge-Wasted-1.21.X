@@ -55,6 +55,13 @@ public class MegaRecyclerBlockEntity extends BlockEntity implements MenuProvider
         }
     };
 
+    private final RecyclerItemHandler sidedItemHandler =
+            new RecyclerItemHandler(itemHandler, FIRST_INPUT_SLOT, LAST_INPUT_SLOT, FIRST_OUTPUT_SLOT, LAST_OUTPUT_SLOT);
+
+    public net.neoforged.neoforge.items.IItemHandler getSidedItemHandler() {
+        return sidedItemHandler;
+    }
+
     private static final ResourceKey<LootTable> TRASH_LOOT =
             ResourceKey.create(Registries.LOOT_TABLE,
                     ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID, "blocks/recycler/trash"));
