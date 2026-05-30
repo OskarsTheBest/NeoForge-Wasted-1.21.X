@@ -24,12 +24,14 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import site.otools.Wasted.block.ModBlocks;
 import site.otools.Wasted.block.custom.TrashbagBlock;
 import site.otools.Wasted.block.entity.ModBlockEntities;
+import site.otools.Wasted.entity.ShopKeeperRenderer;
 import site.otools.Wasted.item.ModCreativeModeTabs;
 import site.otools.Wasted.item.ModItems;
 import site.otools.Wasted.screen.ModMenuTypes;
 import site.otools.Wasted.screen.custom.MegaRecyclerScreen;
 import site.otools.Wasted.screen.custom.RecyclerScreen;
 import site.otools.Wasted.worldgen.ModFeatures;
+import site.otools.Wasted.entity.ModEntities;
 
 import static net.minecraft.world.item.Items.registerBlock;
 
@@ -49,9 +51,13 @@ public class WastedMod {
         ModMenuTypes.register(modEventBus);
         ModBlockEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
+        ModEntities.register(modEventBus);
+        modEventBus.addListener(ModEntities::registerAttributes);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::registerCapabilities);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        LOGGER.info("ShopKeeper registered: {}", ModEntities.SHOPKEEPER);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -79,17 +85,23 @@ public class WastedMod {
     public void onServerStarting(ServerStartingEvent event) {
 
     }
+
     @EventBusSubscriber(modid = WastedMod.MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
 
         }
+
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.RECYCLER_MENU.get(), RecyclerScreen::new);
             event.register(ModMenuTypes.MEGA_RECYCLER_MENU.get(), MegaRecyclerScreen::new);
         }
-    }
 
+        @SubscribeEvent
+        public static void registerRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(ModEntities.SHOPKEEPER.get(), ShopKeeperRenderer::new);
+        }
+    }
 }

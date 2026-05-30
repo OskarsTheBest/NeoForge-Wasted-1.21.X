@@ -14,6 +14,7 @@
   "block.wastedmod.plastic_recycler": "Plastic Recycler",
   "block.wastedmod.mega_recycler": "Mega Recycler",
   "block.wastedmod.trashbag_block": "Trash Block",
-  "creativetab.wastedmod.wasted_items": "Wasted Items"
-
+  "creativetab.wastedmod.wasted_items": "Wasted Items",
+  "item.wastedmod.shopkeeper_spawn_egg": "Shopkeeper Spawn Egg",
+  "entity.wastedmod.shopkeeper": "Shopkeeper"
 }
