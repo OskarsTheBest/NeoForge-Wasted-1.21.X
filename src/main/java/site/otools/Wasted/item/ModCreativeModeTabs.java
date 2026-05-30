@@ -26,6 +26,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.METAL);
                         output.accept(ModItems.PLASTIC);
                         output.accept(ModItems.TRASHGRABBER);
+                        output.accept(ModItems.SHOPKEEPER_SPAWN_EGG);
 
 
                         output.accept(ModBlocks.TRASHBAG.get());

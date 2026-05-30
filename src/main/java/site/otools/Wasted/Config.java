@@ -68,5 +68,28 @@ public class Config {
                     "Otherwise drops glasshatter/metal/plastic evenly. Default: 0.50.")
             .defineInRange("trashbagTrashChanceWithGrabber", 0.50, 0.0, 1.0);
 
+    public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> SHOP_TRADES = BUILDER
+            .comment("List of ShopKeeper trades.",
+                    "Format: \"costItem,costAmount,resultItem,resultAmount,maxUses,xp\"",
+                    "Example: \"wastedmod:coin,5,minecraft:diamond,1,10,5\"")
+            .defineListAllowEmpty("shopTrades", java.util.List.of(
+                    "wastedmod:coin,5,minecraft:diamond,1,10,5",
+                    "wastedmod:coin,2,minecraft:emerald,1,15,3"
+            ), s -> s instanceof String str && str.split(",").length == 6);
+
+    public record TradeEntry(String costItem, int costAmount, String resultItem, int resultAmount, int maxUses, int xp) {}
+
+    public static java.util.List<TradeEntry> getParsedTrades() {
+        java.util.List<TradeEntry> result = new java.util.ArrayList<>();
+        for (String entry : SHOP_TRADES.get()) {
+            String[] p = entry.split(",");
+            result.add(new TradeEntry(
+                    p[0].trim(), Integer.parseInt(p[1].trim()),
+                    p[2].trim(), Integer.parseInt(p[3].trim()),
+                    Integer.parseInt(p[4].trim()), Integer.parseInt(p[5].trim())
+            ));
+        }
+        return result;
+    }
     static final ModConfigSpec SPEC = BUILDER.build();
 }
