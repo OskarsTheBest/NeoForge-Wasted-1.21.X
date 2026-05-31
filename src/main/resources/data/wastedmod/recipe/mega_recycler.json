@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "HDH",
+    "DND",
+    "GMP"
+  ],
+  "key": {
+    "H": { "item": "minecraft:hopper" },
+    "D": { "item": "minecraft:diamond_block" },
+    "N": { "item": "minecraft:nether_star" },
+    "G": { "item": "wastedmod:glass_recycler" },
+    "M": { "item": "wastedmod:metal_recycler" },
+    "P": { "item": "wastedmod:plastic_recycler" }
+  },
+  "result": {
+    "id": "wastedmod:mega_recycler",
+    "count": 1
+  }
+}

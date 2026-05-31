@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ERE",
+    "RTR",
+    "GOG"
+  ],
+  "key": {
+    "E": { "item": "minecraft:emerald_block" },
+    "R": { "item": "minecraft:redstone" },
+    "T": { "item": "wastedmod:trashbag_block" },
+    "G": { "item": "wastedmod:glasshatter" },
+    "O": { "item": "minecraft:observer" }
+  },
+  "result": {
+    "id": "wastedmod:glass_recycler",
+    "count": 1
+  }
+}
