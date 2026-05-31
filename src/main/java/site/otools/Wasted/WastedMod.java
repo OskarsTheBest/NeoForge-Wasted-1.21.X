@@ -100,7 +100,11 @@ public class WastedMod {
         }
 
         @SubscribeEvent
-        public static void registerRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+        public static void registerEntityRenderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(
+                    ModEntities.GLASS_SHATTER.get(),
+                    net.minecraft.client.renderer.entity.ThrownItemRenderer::new
+            );
             event.registerEntityRenderer(ModEntities.SHOPKEEPER.get(), ShopKeeperRenderer::new);
         }
     }

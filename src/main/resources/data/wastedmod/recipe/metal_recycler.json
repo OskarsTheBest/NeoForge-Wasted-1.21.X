@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GRG",
+    "RTR",
+    "MOM"
+  ],
+  "key": {
+    "G": { "item": "minecraft:gold_block" },
+    "R": { "item": "minecraft:redstone" },
+    "T": { "item": "wastedmod:trashbag_block" },
+    "M": { "item": "wastedmod:metal" },
+    "O": { "item": "minecraft:observer" }
+  },
+  "result": {
+    "id": "wastedmod:metal_recycler",
+    "count": 1
+  }
+}
