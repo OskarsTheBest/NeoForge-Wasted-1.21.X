@@ -12,9 +12,9 @@ import site.otools.Wasted.WastedMod;
 public class MegaRecyclerScreen extends AbstractContainerScreen<MegaRecyclerMenu> {
 
     private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/recycler_gui3.png");
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/mega_recycler_gui.png");
     private static final ResourceLocation ARROW_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/arrow_progress.png");
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/arrow_progress_shorter.png");
 
     public MegaRecyclerScreen(MegaRecyclerMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -35,7 +35,7 @@ public class MegaRecyclerScreen extends AbstractContainerScreen<MegaRecyclerMenu
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(ARROW_TEXTURE,x + 53, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
+            guiGraphics.blit(ARROW_TEXTURE,x + 70, y + 34, 0, 0, menu.getScaledArrowProgress()-4 , 16, 20, 16);
         }
     }
 

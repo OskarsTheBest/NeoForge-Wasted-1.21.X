@@ -46,21 +46,29 @@ public class RecyclerMenu extends AbstractContainerMenu {
                 ? recycler.itemHandler
                 : ((PlasticRecyclerBlockEntity) entity).itemHandler;
 
-        this.addSlot(new SlotItemHandler(handler, 0, 34, 34));
-        this.addSlot(new SlotItemHandler(handler, 1, 79, 18));
-        this.addSlot(new SlotItemHandler(handler, 2, 97, 18));
-        this.addSlot(new SlotItemHandler(handler, 3, 115, 18));
-        this.addSlot(new SlotItemHandler(handler, 4, 133, 18));
-        this.addSlot(new SlotItemHandler(handler, 5, 79, 36));
-        this.addSlot(new SlotItemHandler(handler, 6, 97, 36));
-        this.addSlot(new SlotItemHandler(handler, 7, 115, 36));
-        this.addSlot(new SlotItemHandler(handler, 8, 133, 36));
-        this.addSlot(new SlotItemHandler(handler, 9, 79, 54));
-        this.addSlot(new SlotItemHandler(handler, 10, 97, 54));
-        this.addSlot(new SlotItemHandler(handler, 11, 115, 54));
-        this.addSlot(new SlotItemHandler(handler, 12, 133, 54));
+        // input slot
+        this.addSlot(new SlotItemHandler(handler, 0, 26, 34));
+
+        int baseX = 93;
+        int baseY = 14;
+        int slotSize = 18;
+        // 3x4 output grid that starts on baseX baseY
+        int index = 1;
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 4; col++) {
+                int x = baseX + col * slotSize;
+                int y = baseY + row * slotSize;
+
+                this.addSlot(new SlotItemHandler(handler, index, x, y));
+                index++;
+            }
+        }
 
         addDataSlots(data);
+    }
+
+    public BlockEntity getBlockEntity() {
+        return blockEntity;
     }
 
     public boolean isCrafting() {

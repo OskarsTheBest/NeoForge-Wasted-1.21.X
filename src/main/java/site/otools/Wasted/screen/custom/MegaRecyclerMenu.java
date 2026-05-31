@@ -43,27 +43,35 @@ public class MegaRecyclerMenu extends AbstractContainerMenu {
 
         var handler = mega.itemHandler;
 
-        // Inputs: slots 0-5 (2-wide x 3-row grid)
-        this.addSlot(new SlotItemHandler(handler, 0, 16, 18));
-        this.addSlot(new SlotItemHandler(handler, 1, 34, 18));
-        this.addSlot(new SlotItemHandler(handler, 2, 16, 36));
-        this.addSlot(new SlotItemHandler(handler, 3, 34, 36));
-        this.addSlot(new SlotItemHandler(handler, 4, 16, 54));
-        this.addSlot(new SlotItemHandler(handler, 5, 34, 54));
+        int slotSize = 18;
+        // Inputs: slots 0-5 (3-wide x 2-row grid)
+        int inputStartX = 12;
+        int inputStartY = 23;
+
+        int index = 0;
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 3; col++) {
+                int x = inputStartX + col * slotSize;
+                int y = inputStartY + row * slotSize;
+
+                this.addSlot(new SlotItemHandler(handler, index, x, y));
+                index++;
+            }
+        }
 
         // Outputs: slots 6-17 (4-wide x 3-row grid)
-        this.addSlot(new SlotItemHandler(handler, 6, 89, 18));
-        this.addSlot(new SlotItemHandler(handler, 7, 107, 18));
-        this.addSlot(new SlotItemHandler(handler, 8, 125, 18));
-        this.addSlot(new SlotItemHandler(handler, 9, 143, 18));
-        this.addSlot(new SlotItemHandler(handler, 10, 89, 36));
-        this.addSlot(new SlotItemHandler(handler, 11, 107, 36));
-        this.addSlot(new SlotItemHandler(handler, 12, 125, 36));
-        this.addSlot(new SlotItemHandler(handler, 13, 143, 36));
-        this.addSlot(new SlotItemHandler(handler, 14, 89, 54));
-        this.addSlot(new SlotItemHandler(handler, 15, 107, 54));
-        this.addSlot(new SlotItemHandler(handler, 16, 125, 54));
-        this.addSlot(new SlotItemHandler(handler, 17, 143, 54));
+        int outputStartX = 93;
+        int outputStartY = 14;
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 4; col++) {
+                int x = outputStartX + col * slotSize;
+                int y = outputStartY + row * slotSize;
+
+                this.addSlot(new SlotItemHandler(handler, index, x, y));
+                index++;
+            }
+        }
         addDataSlots(data);
     }
 

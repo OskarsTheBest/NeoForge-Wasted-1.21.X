@@ -9,12 +9,36 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import site.otools.Wasted.WastedMod;
+import site.otools.Wasted.block.ModBlocks;
 
 
 public class RecyclerScreen extends AbstractContainerScreen<RecyclerMenu> {
 
-    private static final ResourceLocation GUI_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/recycler_gui2.png");
+    private ResourceLocation GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/classic_recycler_gui.png");
+
+    @Override
+    protected void init() {
+        super.init();
+
+        var block = menu.getBlockEntity().getBlockState().getBlock();
+
+        if (block == ModBlocks.RECYCLER.get()) {
+            GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/classic_recycler_gui.png");
+        } else if (block == ModBlocks.GLASS_RECYCLER.get()) {
+            GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/glass_recycler_gui.png");
+        } else if (block == ModBlocks.METAL_RECYCLER.get()) {
+            GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/metal_recycler_gui.png");
+        } else if (block == ModBlocks.PLASTIC_RECYCLER.get()) {
+            GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/recycler/plastic_recycler_gui.png");
+        }
+    }
+
+
     private static final ResourceLocation ARROW_TEXTURE =
             ResourceLocation.fromNamespaceAndPath(WastedMod.MOD_ID,"textures/gui/arrow_progress.png");
 
@@ -38,7 +62,7 @@ public class RecyclerScreen extends AbstractContainerScreen<RecyclerMenu> {
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(ARROW_TEXTURE,x + 53, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
+            guiGraphics.blit(ARROW_TEXTURE,x + 59, y + 35, 0, 0, menu.getScaledArrowProgress(), 16, 24, 16);
         }
     }
 

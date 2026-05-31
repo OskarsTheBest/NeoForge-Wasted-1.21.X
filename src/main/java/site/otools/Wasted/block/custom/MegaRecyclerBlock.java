@@ -50,7 +50,7 @@ public class MegaRecyclerBlock extends RecyclerBlock {
             BlockEntity entity = plevel.getBlockEntity(pPos);
             if (entity instanceof MegaRecyclerBlockEntity megaRecyclerBlockEntity) {
                 ((ServerPlayer) pPlayer).openMenu(
-                        new SimpleMenuProvider(megaRecyclerBlockEntity, Component.literal("Mega Recycler")),
+                        new SimpleMenuProvider(megaRecyclerBlockEntity, Component.literal("Recycler")),
                         pPos
                 );
             } else {
