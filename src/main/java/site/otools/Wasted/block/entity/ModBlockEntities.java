@@ -33,6 +33,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("mega_recycler_be", () -> BlockEntityType.Builder.of(
                     MegaRecyclerBlockEntity::new, ModBlocks.MEGA_RECYCLER.get()).build(null));
 
+    public static final Supplier<BlockEntityType<TrashGeneratorBlockEntity>> TRASH_GENERATOR_BE =
+            BLOCK_ENTITIES.register("trash_generator_be", () -> BlockEntityType.Builder.of(
+                    TrashGeneratorBlockEntity::new, ModBlocks.TRASH_GENERATOR.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

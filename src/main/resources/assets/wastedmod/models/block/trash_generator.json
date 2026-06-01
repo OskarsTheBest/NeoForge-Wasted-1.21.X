@@ -1,0 +1,29 @@
+{
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "glass": "minecraft:block/glass",
+    "iron": "minecraft:block/iron_block",
+    "particle": "minecraft:block/iron_block"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down":  { "texture": "#iron",  "cullface": "down"  },
+        "up":    { "texture": "#glass", "cullface": "up"    },
+        "north": { "texture": "#glass", "cullface": "north" },
+        "south": { "texture": "#glass", "cullface": "south" },
+        "east":  { "texture": "#glass", "cullface": "east"  },
+        "west":  { "texture": "#glass", "cullface": "west"  }
+      }
+    },
+    {
+      "from": [0, 0.01, 0],
+      "to":   [16, 0.5,  16],
+      "faces": {
+        "up": { "texture": "#iron" }
+      }
+    }
+  ]
+}

@@ -71,6 +71,7 @@ public class WastedMod {
         event.registerBlockEntity(cap, ModBlockEntities.METAL_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
         event.registerBlockEntity(cap, ModBlockEntities.PLASTIC_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
         event.registerBlockEntity(cap, ModBlockEntities.MEGA_RECYCLER_BE.get(), (be, side) -> be.getSidedItemHandler());
+        event.registerBlockEntity(cap, ModBlockEntities.TRASH_GENERATOR_BE.get(), (be, side) -> be.getSidedItemHandler());
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -106,6 +107,11 @@ public class WastedMod {
                     net.minecraft.client.renderer.entity.ThrownItemRenderer::new
             );
             event.registerEntityRenderer(ModEntities.SHOPKEEPER.get(), ShopKeeperRenderer::new);
+
+            event.registerBlockEntityRenderer(
+                    site.otools.Wasted.block.entity.ModBlockEntities.TRASH_GENERATOR_BE.get(),
+                    site.otools.Wasted.block.entity.renderer.TrashGeneratorBlockEntityRenderer::new
+            );
         }
     }
 }
