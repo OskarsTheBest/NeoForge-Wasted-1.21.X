@@ -1,8 +1,10 @@
 {
   "render_type": "minecraft:cutout",
   "textures": {
-    "glass": "minecraft:block/glass",
-    "iron": "minecraft:block/iron_block",
+    "side": "wastedmod:block/trash_generator_side",
+    "top": "wastedmod:block/trash_generator_top",
+    "back": "wastedmod:block/trash_generator_back",
+    "bottom": "wastedmod:block/trash_generator_bottom",
     "particle": "minecraft:block/iron_block"
   },
   "elements": [
@@ -10,19 +12,47 @@
       "from": [0, 0, 0],
       "to": [16, 16, 16],
       "faces": {
-        "down":  { "texture": "#iron",  "cullface": "down"  },
-        "up":    { "texture": "#glass", "cullface": "up"    },
-        "north": { "texture": "#glass", "cullface": "north" },
-        "south": { "texture": "#glass", "cullface": "south" },
-        "east":  { "texture": "#glass", "cullface": "east"  },
-        "west":  { "texture": "#glass", "cullface": "west"  }
+        "down":  { "texture": "#bottom",  "cullface": "down"},
+        "up":    { "texture": "#top"},
+        "north": { "texture": "#side"},
+        "south": { "texture": "#back"},
+        "east":  { "texture": "#side" },
+        "west":  { "texture": "#side"  }
       }
     },
     {
       "from": [0, 0.01, 0],
       "to":   [16, 0.5,  16],
       "faces": {
-        "up": { "texture": "#iron" }
+        "up": { "texture": "#bottom" }
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to":   [16, 16, 0.5],
+      "faces": {
+        "south": { "texture": "#side" }
+      }
+    },
+    {
+      "from": [0, 0, 15.5],
+      "to":   [16, 16, 16],
+      "faces": {
+        "north": { "texture": "#back" }
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to":   [0.5, 16, 16],
+      "faces": {
+        "east": { "texture": "#side" }
+      }
+    },
+    {
+      "from": [15.5, 0, 0],
+      "to":   [16, 16, 16],
+      "faces": {
+        "west": { "texture": "#side" }
       }
     }
   ]
