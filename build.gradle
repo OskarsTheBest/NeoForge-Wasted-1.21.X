@@ -19,6 +19,8 @@ group = mod_group_id
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    // JEI (and other Jared-published mods) are hosted here.
+    maven { url = "https://maven.blamejared.com" }
 }
 
 base {
@@ -112,12 +114,10 @@ configurations {
 }
 
 dependencies {
-    // Example optional mod dependency with JEI
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    // JEI: API at compile time, full artifact only at runtime (localRuntime so it is not published as a dependency).
+    compileOnly  "mezz.jei:jei-${jei_mc}-common-api:${jei_version}"
+    compileOnly  "mezz.jei:jei-${jei_mc}-neoforge-api:${jei_version}"
+    localRuntime "mezz.jei:jei-${jei_mc}-neoforge:${jei_version}"
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar

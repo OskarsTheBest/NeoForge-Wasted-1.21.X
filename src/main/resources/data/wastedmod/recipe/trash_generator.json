@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GGG",
+    "TRT",
+    "TTT"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "T": {
+      "item": "wastedmod:trashbag_block"
+    },
+    "R": {
+      "item": "wastedmod:trashgrabber"
+    }
+  },
+  "result": {
+    "id": "wastedmod:trash_generator",
+    "count": 1
+  }
+}

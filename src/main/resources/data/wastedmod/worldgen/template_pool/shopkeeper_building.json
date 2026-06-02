@@ -1,0 +1,15 @@
+{
+  "name": "wastedmod:shopkeeper_building",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "processors": "minecraft:empty",
+        "location": "wastedmod:shopkeeper_building"
+      }
+    }
+  ]
+}

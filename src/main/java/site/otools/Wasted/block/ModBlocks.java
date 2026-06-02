@@ -25,15 +25,15 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> TRASHBAG = registerBlock("trashbag", ()-> new TrashbagBlock(BlockBehaviour.Properties.of().strength(1.167f).noOcclusion()));
 
-    public static final DeferredBlock<Block> RECYCLER = registerBlock("recycler", ()-> new RecyclerBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredBlock<Block> RECYCLER = registerBlock("recycler", ()-> new RecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
-    public static final DeferredBlock<Block> GLASS_RECYCLER = registerBlock("glass_recycler", () -> new GlassRecyclerBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredBlock<Block> GLASS_RECYCLER = registerBlock("glass_recycler", () -> new GlassRecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
-    public static final DeferredBlock<Block> METAL_RECYCLER = registerBlock("metal_recycler", () -> new MetalRecyclerBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredBlock<Block> METAL_RECYCLER = registerBlock("metal_recycler", () -> new MetalRecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
-    public static final DeferredBlock<Block> PLASTIC_RECYCLER = registerBlock("plastic_recycler", () -> new PlasticRecyclerBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredBlock<Block> PLASTIC_RECYCLER = registerBlock("plastic_recycler", () -> new PlasticRecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
-    public static final DeferredBlock<Block> MEGA_RECYCLER = registerBlock("mega_recycler", () -> new MegaRecyclerBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredBlock<Block> MEGA_RECYCLER = registerBlock("mega_recycler", () -> new MegaRecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
     public static final DeferredBlock<Block> TRASH_GENERATOR = registerBlock("trash_generator",
             () -> new TrashGeneratorBlock(BlockBehaviour.Properties.of()
