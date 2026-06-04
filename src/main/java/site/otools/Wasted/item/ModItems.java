@@ -13,7 +13,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import site.otools.Wasted.WastedMod;
 import site.otools.Wasted.block.ModBlocks;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Items;
 import site.otools.Wasted.entity.ModEntities;
+import site.otools.Wasted.fluid.ModFluids;
 
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(WastedMod.MOD_ID);
@@ -39,6 +42,10 @@ public class ModItems {
 
     public static final DeferredItem<Item> TRASHBAG_V2 = ITEMS.register("trashbag_v2",
             () -> new BlockItem(ModBlocks.TRASHBAG_V2.get(), new Item.Properties()));
+
+    public static final DeferredItem<Item> POLLUTED_WATER_BUCKET = ITEMS.register("polluted_water_bucket",
+            () -> new BucketItem(ModFluids.POLLUTED_WATER.get(),
+                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     public static final DeferredItem<Item> SHOPKEEPER_SPAWN_EGG = ITEMS.register("shopkeeper_spawn_egg",
             () -> new net.minecraft.world.item.SpawnEggItem(

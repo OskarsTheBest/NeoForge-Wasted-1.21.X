@@ -1,6 +1,8 @@
 package site.otools.Wasted.block;
 
 import site.otools.Wasted.block.custom.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -15,6 +17,7 @@ import site.otools.Wasted.item.FuelBlockItem;
 import site.otools.Wasted.item.ModItems;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -24,6 +27,16 @@ public class ModBlocks {
             DeferredRegister.createBlocks(WastedMod.MOD_ID);
 
     public static final DeferredBlock<Block> TRASHBAG = registerBlock("trashbag", ()-> new TrashbagBlock(BlockBehaviour.Properties.of().strength(1.167f).noOcclusion()));
+
+    public static final DeferredBlock<LiquidBlock> POLLUTED_WATER_BLOCK = BLOCKS.register("polluted_water",
+            () -> new PollutedWaterBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.WATER)
+                    .noCollission()
+                    .strength(100.0F)
+                    .pushReaction(PushReaction.DESTROY)
+                    .noLootTable()
+                    .liquid()
+                    .sound(SoundType.EMPTY)));
 
     public static final DeferredBlock<Block> RECYCLER = registerBlock("recycler", ()-> new RecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 

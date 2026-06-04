@@ -32,6 +32,11 @@ import site.otools.Wasted.screen.custom.MegaRecyclerScreen;
 import site.otools.Wasted.screen.custom.RecyclerScreen;
 import site.otools.Wasted.worldgen.ModFeatures;
 import site.otools.Wasted.entity.ModEntities;
+import site.otools.Wasted.fluid.ModFluids;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 import static net.minecraft.world.item.Items.registerBlock;
 
@@ -52,6 +57,7 @@ public class WastedMod {
         ModBlockEntities.register(modEventBus);
         ModFeatures.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModFluids.register(modEventBus);
         modEventBus.addListener(ModEntities::registerAttributes);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::registerCapabilities);
@@ -92,6 +98,28 @@ public class WastedMod {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
 
+        }
+
+        @SubscribeEvent
+        public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public int getTintColor() {
+                    return 0xCC4E7A2A;
+                }
+                @Override
+                public ResourceLocation getStillTexture() {
+                    return ResourceLocation.withDefaultNamespace("block/water_still");
+                }
+                @Override
+                public ResourceLocation getFlowingTexture() {
+                    return ResourceLocation.withDefaultNamespace("block/water_flow");
+                }
+                @Override
+                public ResourceLocation getOverlayTexture() {
+                    return ResourceLocation.withDefaultNamespace("block/water_overlay");
+                }
+            }, ModFluids.POLLUTED_WATER_TYPE.get());
         }
 
         @SubscribeEvent

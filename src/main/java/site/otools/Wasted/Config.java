@@ -68,6 +68,15 @@ public class Config {
                     "Otherwise drops glasshatter/metal/plastic evenly. Default: 0.50.")
             .defineInRange("trashbagTrashChanceWithGrabber", 0.50, 0.0, 1.0);
 
+    public static final ModConfigSpec.BooleanValue POLLUTION_ENABLED = BUILDER
+            .comment("If true, throwing Trash or Trashbag items into water pollutes it.")
+            .define("pollutionEnabled", true);
+
+    public static final ModConfigSpec.IntValue POLLUTION_SPREAD_DELAY = BUILDER
+            .comment("Ticks between each pollution spread step. Higher = slower spread (20 ticks = 1 second).",
+                    "Default: 40 (one new block every ~2 seconds per frontier block).")
+            .defineInRange("pollutionSpreadDelayTicks", 40, 1, 24000);
+
     public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> SHOP_TRADES = BUILDER
             .comment("List of ShopKeeper trades.",
                     "Format: \"costItem,costAmount,resultItem,resultAmount,maxUses,xp\"",

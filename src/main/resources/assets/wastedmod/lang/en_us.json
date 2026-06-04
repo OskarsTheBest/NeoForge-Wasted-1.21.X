@@ -15,8 +15,10 @@
   "block.wastedmod.mega_recycler": "Mega Recycler",
   "block.wastedmod.trashbag_block": "Trash Block",
   "block.wastedmod.trash_generator": "Trash Generator",
+  "block.wastedmod.polluted_water": "Polluted Water",
   "creativetab.wastedmod.wasted_items": "Wasted Items",
   "item.wastedmod.shopkeeper_spawn_egg": "Shopkeeper Spawn Egg",
+  "item.wastedmod.polluted_water_bucket": "Bucket of Polluted Water",
   "entity.wastedmod.shopkeeper": "Shopkeeper",
   "gui.wastedmod.jei.recycling.glass": "Glass Recycling",
   "gui.wastedmod.jei.recycling.metal": "Metal Recycling",
@@ -27,5 +29,6 @@
   "gui.wastedmod.jei.max_uses": "Max uses: %s",
   "gui.wastedmod.jei.info.trash": "Trash is obtained by breaking Trashbags (use the Trash Grabber for a better chance), from Recyclers, and from a Trash Generator. Feed it back into a Recycler to get useful materials.",
   "gui.wastedmod.jei.info.trashbag": "Break a Trashbag to get Trash, Glass Shatter, Metal, or Plastic. Breaking it with the Trash Grabber greatly increases the chance of getting Trash.",
-  "gui.wastedmod.jei.info.trash_generator": "The Trash Generator continuously produces Trash on its own. Pull the Trash out from any side (e.g. with a hopper) and recycle it."
+  "gui.wastedmod.jei.info.trash_generator": "The Trash Generator continuously produces Trash on its own. Pull the Trash out from any side (e.g. with a hopper) and recycle it.",
+  "gui.wastedmod.jei.info.polluted_water": "Throwing Trash into water pollutes it, turning it murky green. The pollution then spreads to nearby water very slowly. Swimming in Polluted Water causes Hunger and Nausea. Scoop it up with a Polluted Water bucket to clean it."
 }

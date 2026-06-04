@@ -3,6 +3,10 @@ package site.otools.Wasted.compat.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import site.otools.Wasted.fluid.ModFluids;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -71,6 +75,10 @@ public class WastedJeiPlugin implements IModPlugin {
                 Component.translatable("gui.wastedmod.jei.info.trashbag"));
         registration.addIngredientInfo(new ItemStack(ModBlocks.TRASH_GENERATOR.get()), VanillaTypes.ITEM_STACK,
                 Component.translatable("gui.wastedmod.jei.info.trash_generator"));
+        registration.addIngredientInfo(
+                new FluidStack(ModFluids.POLLUTED_WATER.get(), FluidType.BUCKET_VOLUME),
+                NeoForgeTypes.FLUID_STACK,
+                Component.translatable("gui.wastedmod.jei.info.polluted_water"));
     }
 
     @Override

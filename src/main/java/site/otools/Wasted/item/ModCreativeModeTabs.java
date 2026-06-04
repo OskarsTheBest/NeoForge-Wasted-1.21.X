@@ -27,6 +27,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.PLASTIC);
                         output.accept(ModItems.TRASHGRABBER);
                         output.accept(ModItems.SHOPKEEPER_SPAWN_EGG);
+                        output.accept(ModItems.POLLUTED_WATER_BUCKET);
 
 
                         output.accept(ModBlocks.TRASH_GENERATOR.get());
