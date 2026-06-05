@@ -126,6 +126,7 @@ public class WastedMod {
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(ModMenuTypes.RECYCLER_MENU.get(), RecyclerScreen::new);
             event.register(ModMenuTypes.MEGA_RECYCLER_MENU.get(), MegaRecyclerScreen::new);
+            event.register(ModMenuTypes.CASINO_MENU.get(), site.otools.Wasted.screen.custom.CasinoScreen::new);
         }
 
         @SubscribeEvent

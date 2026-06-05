@@ -37,6 +37,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("trash_generator_be", () -> BlockEntityType.Builder.of(
                     TrashGeneratorBlockEntity::new, ModBlocks.TRASH_GENERATOR.get()).build(null));
 
+    public static final Supplier<BlockEntityType<CasinoBlockEntity>> CASINO_BE =
+            BLOCK_ENTITIES.register("casino_be", () -> BlockEntityType.Builder.of(
+                    CasinoBlockEntity::new, ModBlocks.CASINO.get()).build(null));
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITIES.register(bus);
     }

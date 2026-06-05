@@ -28,8 +28,10 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.TRASHGRABBER);
                         output.accept(ModItems.SHOPKEEPER_SPAWN_EGG);
                         output.accept(ModItems.POLLUTED_WATER_BUCKET);
+                        output.accept(ModItems.BLACKJACK_KEY);
 
 
+                        output.accept(ModBlocks.CASINO.get());
                         output.accept(ModBlocks.TRASH_GENERATOR.get());
                         output.accept(ModBlocks.TRASHBAG.get());
                         output.accept(ModBlocks.TRASHBAG_V1.get());

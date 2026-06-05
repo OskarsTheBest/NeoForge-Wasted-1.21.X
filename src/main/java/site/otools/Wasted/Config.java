@@ -83,7 +83,14 @@ public class Config {
                     "Example: \"wastedmod:coin,5,minecraft:diamond,1,10,5\"")
             .defineListAllowEmpty("shopTrades", java.util.List.of(
                     "wastedmod:coin,5,minecraft:diamond,1,10,5",
-                    "wastedmod:coin,2,minecraft:emerald,1,15,3"
+                    "wastedmod:coin,2,minecraft:emerald,1,15,3",
+                    "wastedmod:coin,64,minecraft:nether_star,1,10,15",
+                    "wastedmod:coin,32,minecraft:netherite_ingot,1,10,10",
+                    "wastedmod:coin,10,wastedmod:blackjack_key,1,10,10",
+                    "wastedmod:coin,99,wastedmod:mega_recycler,1,10,15",
+                    "wastedmod:coin,16,wastedmod:trashgrabber,1,10,5",
+                    "wastedmod:coin,64,wastedmod:trash_generator,1,10,10",
+                    "wastedmod:coin,5,wastedmod:polluted_water_bucket,1,10,3"
             ), s -> s instanceof String str && str.split(",").length == 6);
 
     public record TradeEntry(String costItem, int costAmount, String resultItem, int resultAmount, int maxUses, int xp) {}

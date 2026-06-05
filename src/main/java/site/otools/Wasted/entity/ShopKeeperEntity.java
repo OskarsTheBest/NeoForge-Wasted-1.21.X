@@ -41,7 +41,7 @@ public class ShopKeeperEntity extends AbstractVillager {
                 offers.add(new MerchantOffer(
                         new ItemCost(costStack.getItem(), trade.costAmount()),
                         resultStack,
-                        trade.maxUses(),
+                        Integer.MAX_VALUE,
                         trade.xp(),
                         0.0f
                 ));
@@ -55,7 +55,7 @@ public class ShopKeeperEntity extends AbstractVillager {
             offers.add(new MerchantOffer(
                     new ItemCost(ModItems.COIN.get(), 5),
                     new ItemStack(Items.DIAMOND),
-                    10, 5, 0.0f
+                    Integer.MAX_VALUE, 5, 0.0f
             ));
         }
     }

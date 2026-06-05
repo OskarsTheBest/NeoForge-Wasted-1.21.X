@@ -9,6 +9,7 @@ import net.neoforged.neoforge.network.IContainerFactory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import site.otools.Wasted.WastedMod;
+import site.otools.Wasted.screen.custom.CasinoMenu;
 import site.otools.Wasted.screen.custom.MegaRecyclerMenu;
 import site.otools.Wasted.screen.custom.RecyclerMenu;
 
@@ -21,6 +22,9 @@ public class ModMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<MegaRecyclerMenu>> MEGA_RECYCLER_MENU =
             registerMenuType("mega_recycler_menu", MegaRecyclerMenu::new);
+
+    public static final DeferredHolder<MenuType<?>, MenuType<CasinoMenu>> CASINO_MENU =
+            registerMenuType("casino_menu", CasinoMenu::new);
 
     private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                               IContainerFactory<T> factory) {

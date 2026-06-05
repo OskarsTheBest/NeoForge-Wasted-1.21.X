@@ -48,6 +48,12 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> MEGA_RECYCLER = registerBlock("mega_recycler", () -> new MegaRecyclerBlock(BlockBehaviour.Properties.of().strength(2.0f)));
 
+    public static final DeferredBlock<Block> CASINO = registerBlock("casino",
+            () -> new CasinoBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_RED)
+                    .strength(3.0f)
+                    .sound(SoundType.METAL)));
+
     public static final DeferredBlock<Block> TRASH_GENERATOR = registerBlock("trash_generator",
             () -> new TrashGeneratorBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)

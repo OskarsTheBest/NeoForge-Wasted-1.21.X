@@ -32,7 +32,7 @@ public class ModItems {
                                     EquipmentSlotGroup.MAINHAND)
                             .build())));
     public static final DeferredItem<Item> TRASH = ITEMS.register("trash", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> COIN = ITEMS.register("coin", () -> new Item(new Item.Properties().stacksTo(999)));
     public static final DeferredItem<Item> GLASSHATTER = ITEMS.register("glasshatter", () -> new GlassShatterItem(new Item.Properties()));
     public static final DeferredItem<Item> METAL = ITEMS.register("metal", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PLASTIC = ITEMS.register("plastic", () -> new Item(new Item.Properties()));
@@ -46,6 +46,9 @@ public class ModItems {
     public static final DeferredItem<Item> POLLUTED_WATER_BUCKET = ITEMS.register("polluted_water_bucket",
             () -> new BucketItem(ModFluids.POLLUTED_WATER.get(),
                     new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+
+    public static final DeferredItem<Item> BLACKJACK_KEY = ITEMS.register("blackjack_key",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> SHOPKEEPER_SPAWN_EGG = ITEMS.register("shopkeeper_spawn_egg",
             () -> new net.minecraft.world.item.SpawnEggItem(
